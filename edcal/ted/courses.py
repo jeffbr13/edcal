@@ -46,7 +46,7 @@ def courses_from_page(course_page_content):
     return courses
 
 
-def regex_search(courses, regex_str):
+def regex_filter(courses, regex_str):
     """Filters the list of courses by regex."""
     regex = re.compile(regex_str, flags=re.IGNORECASE)
     return [c for (c) in courses if (regex.search(c.code) or regex.search(c.title))]

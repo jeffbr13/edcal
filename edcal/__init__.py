@@ -8,10 +8,7 @@ edcal has two functional components:
 from datetime import datetime
 from uuid import uuid4 as uuid
 
-from .vcal import CalendarEvent, render_calendar
-from .ted import timetable, courses
-
-
+from .ted.courses import courses_from_page, combined_course_selection_page_disk, regex_filter
 
 
 
@@ -27,7 +24,7 @@ from .ted import timetable, courses
 #     return render_calendar(vevents)
 
 
-cs = courses.courses_from_page(courses.combined_course_selection_page_disk())
+cs = courses_from_page(combined_course_selection_page_disk())
 
 sample_identifiers = [
     'INFR08020_SV1_SEM2',
@@ -36,4 +33,4 @@ sample_identifiers = [
     'INFR08013_SV1_SEM1',
     'INFR08014_SV1_SEM2']
 
-print(courses.regex_search(cs, 'math'))
+print(regex_filter(cs, 'philosophy of'))
