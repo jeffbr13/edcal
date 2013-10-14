@@ -36,3 +36,4 @@ sample_identifiers = [
     'INFR08013_SV1_SEM1',
     'INFR08014_SV1_SEM2']
 
+print(courses.regex_search(cs, 'math'))

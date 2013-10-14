@@ -1,4 +1,6 @@
 #!python3
+import re
+
 from lxml import etree
 import requests
 
@@ -44,6 +46,7 @@ def courses_from_page(course_page_content):
     return courses
 
 
-def search(courses, search_text):
-    """Filters the list of courses by the text."""
-    [c for (c) in courses if (search_text in c.code or search_text in c.title)]
+def regex_search(courses, regex_str):
+    """Filters the list of courses by regex."""
+    regex = re.compile(regex_str, flags=re.IGNORECASE)
+    return [c for (c) in courses if (regex.search(c.code) or regex.search(c.title))]
