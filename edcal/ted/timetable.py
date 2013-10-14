@@ -71,7 +71,7 @@ def fetch_webpage(course_identifiers, week_numbers=SEM1_AND_SEM2_WEEKS):
         'style': 'textspreadsheet',
         'template': 'SWSCUST Object Textspreadsheet',
         'week': ';'.join(map(str, week_numbers)),
-        'identifier': ', '.join([course.identifier for (course) in course_identifiers])
+        'identifier': ', '.join(course_identifiers)
     }
     return requests.post('https://www.ted.is.ed.ac.uk/UOE1213_SWS/timetable.asp', data=request_args).content
 
@@ -87,6 +87,10 @@ def timetable_items(page_content):
             items.append(TimetableItem(weekday, *row.xpath('./td//text()')))
 
     return items
+
+
+def fetch_timetable_items(course_identifiers, week_numbers=SEM1_AND_SEM2_WEEKS):
+    return timetable_items(fetch_webpage(course_identifiers, week_numbers))
 
 
 def by_name(timetable_items):

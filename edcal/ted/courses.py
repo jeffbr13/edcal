@@ -50,3 +50,10 @@ def regex_filter(courses, regex_str):
     """Filters the list of courses by regex."""
     regex = re.compile(regex_str, flags=re.IGNORECASE)
     return [c for (c) in courses if (regex.search(c.code) or regex.search(c.title))]
+
+
+def load_courses():
+    try:
+        return courses_from_page(combined_course_selection_page_disk())
+    except FileNotFoundError:
+        return courses_from_page(combined_course_selection_page())

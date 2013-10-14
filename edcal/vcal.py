@@ -17,15 +17,15 @@ class CalendarEvent:
         item_start_time = strptime(timetable_item.start, '%H:%M')
         self.first_item_start_time = datetime.combine(
             first_weekday_after(
-                WEEKDAYS.index(timetable_item.Day),
+                WEEKDAYS.index(timetable_item.weekday),
                 timetable_item.minimum_date()),
             time(hour=item_start_time.tm_hour, minute=item_start_time.tm_min)
         )
 
-        item_end_time = strptime(timetable_item.End, '%H:%M')
+        item_end_time = strptime(timetable_item.end, '%H:%M')
         self.first_item_end_time = datetime.combine(
                                           first_weekday_after(
-                                                      WEEKDAYS.index(timetable_item.Day),
+                                                      WEEKDAYS.index(timetable_item.weekday),
                                                       timetable_item.minimum_date()),
                                           time(hour=item_end_time.tm_hour, minute=item_end_time.tm_min))
 
@@ -43,16 +43,16 @@ DTEND;TZID=Europe/London:{first_end_time:%Y%m%dT%H%M%S}\r
 RRULE:FREQ=WEEKLY;UNTIL={series_end_time}\r
 END:VEVENT""".format(summary=self.summary, description=self.description,
         location=self.location,
-        first_start_time=self.first_start_time,
-        first_end_time=self.first_end_time,
+        first_start_time=self.first_item_start_time,
+        first_end_time=self.first_item_end_time,
         series_end_time=self.series_end_time,
         unique_id=unique_id,
         now=now)
 
 
-def render_calendar(vevent_strings):
+def render_calendar(calendar_events, random_function, now):
     return """BEGIN:VCALENDAR\r
 VERSION:2.0\r
 PRODID:-//Ben Jeffrey/edcal//NONSGML v1.0//EN\r
 {vevents}\r
-END:VCALENDAR""".format(vevents='\r\n'.join(vevent_strings))
+END:VCALENDAR""".format(vevents='\r\n'.join([event.render(random_function(), now) for (event) in calendar_events]))
