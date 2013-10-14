@@ -12,7 +12,6 @@ def partition(partition_func, iterable):
     return dict(partitions)
 
 
-
 def first_weekday_after(weekday_index, date):
     """Returns a datetime for the first occurrence of weekday on
     or after the given date.

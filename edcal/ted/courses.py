@@ -15,13 +15,20 @@ class Course:
         self.title = title
         self.identifier = identifier
 
+    def __repr__(self):
+        return '<Course: {0}>'.format(self.identifier)
+
+    def __str__(self):
+        return '<Course: {0} ({1})>'.format(self.title, self.code)
+
+
 
 def combined_course_selection_page():
     return requests.post('https://www.ted.is.ed.ac.uk/UOE1314_SWS/demo_post2.asp', data={'student': 'N'}).content
 
 
 def combined_course_selection_page_disk():
-    with open('course-options', 'r') as f:
+    with open('edcal/course-options.asp', 'rb') as f:
         return f.read()
 
 
@@ -32,7 +39,7 @@ def courses_from_page(course_page_content):
     for option in options:
         identifier = option.get('value')
         course_code = identifier.split('_')[0]
-        title = option.text.rsplit(' - ', maxsplit=1)[0]
+        title = option.text.rsplit(' - ', maxsplit=1)[0].strip()
         courses.append(Course(course_code, title, identifier))
     return courses
 
