@@ -1,22 +1,35 @@
 #!python3
-"""REST interface to edcal."""
+"""Web API/interface to edcal."""
 import json
 import os
 
-from flask import Flask, request
+from flask import Flask, render_template, request
+from wtforms import Form, TextField, validators, FieldList
 
 from edcal import edcal_instance as edcal
 
 
 app = Flask(__name__)
 
+
+class CourseCodeForm(Form):
+    """Takes and validates a bunch of UoE course codes."""
+    course_codes = FieldList(
+        TextField(label='course-code',
+                  validators=[validators.Regexp('[\w]{4}[\d]{5}')]),
+        min_entries=3
+    )
+
+
 @app.route('/')
 def homepage():
-    return 'Hello, world!'
+    form = CourseCodeForm(request.form)
+    return render_template('course-code-form.html', form=form)
 
 
 @app.route('/identifiers')
 def identifier_search():
+    """List of identifiers for courses matching the query regex."""
     return json.dumps(edcal.identifier_search(request.args.get('q', '')))
 
 

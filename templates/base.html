@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Put your course timetables into your calendar, with EdCal for the University Of Edinburgh.">
+    <meta name="author" content="Ben Jeffrey">
+
+    <title>EdCal (timetable→calendar)</title>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    {% block styles %}
+    {% endblock styles %}
+
+    {% block headscripts %}
+    {% endblock headscripts %}
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">EdCal</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">enter course codes</a></li>
+            {# <li><a href="#">search & select courses</a></li> #}
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://benjeffrey.com">Ben Jeffrey</a></li>
+            <li><a href="https://github.com/jeffbr13/edcal">source code</a></li>
+            <li><a href="https://www.ted.is.ed.ac.uk/UOE1314_SWS/">data scraped from T@Ed</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        {% block body %}
+        {% endblock body %}
+      </div>
+
+    </div> <!-- /container -->
+
+    {% block scripts %}
+    {% endblock scripts %}
+  </body>
+</html>

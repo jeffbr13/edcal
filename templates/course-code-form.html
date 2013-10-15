@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <form role="form" method="GET" action="/calendar" id="course-code-form">
+        <legend>Type your University of Edinburgh course codes below:</legend>
+        <p><small>A valid course code has 4 letters and 5 numbers.</small></p>
+
+        <fieldset>
+            {% for field in form.course_codes %}
+                <div class="form-group">
+                    {# {{ field.label(class='control-label') }} #}
+                    {{ field(pattern='^\w{4}\d{5}$', title='UoE course code: 4 letters and 5 numbers', class='form-control', placeholder='e.g. MATH08058', autofocus='true') }}
+                </div>
+            {% endfor %}
+
+            <div id="form-buttons" class="form-actions">
+                <button type="submit" class="btn btn-primary">Generate Calendar</button>
+            </div>
+        </fieldset>
+    </form>
+{% endblock body %}
+
+{% block styles %}
+    <style type="text/css">
+    input {
+        display: block;
+    }
+    </style>
+{% endblock styles %}
