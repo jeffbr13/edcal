@@ -5,7 +5,7 @@ import re
 from lxml import etree
 import requests
 
-from ..util import partition
+from ..util import classify
 
 
 WEEKDAYS = ('MO','TU','WE','TH','FR','SA','SU')
@@ -94,4 +94,4 @@ def fetch_timetable_items(course_identifiers, week_numbers=SEM1_AND_SEM2_WEEKS):
 
 
 def by_name(timetable_items):
-    return partition((lambda item: item.name), timetable_items)
+    return classify((lambda item: item.name), timetable_items)

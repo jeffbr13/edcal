@@ -3,13 +3,16 @@ from collections import defaultdict
 from datetime import timedelta
 
 
-def partition(partition_func, iterable):
-    """Partition a list into named lists, based on a function of each element.
+def classify(classifier_func, iterable):
+    """Use a classification function to sort elements into a dict.
+
+    :param classifier_func: returns an element's classification as a string
+    :param iterable: collection of elements to classify
     """
-    partitions = defaultdict(list)
+    classifications = defaultdict(list)
     for element in iterable:
-        partitions[partition_func(element)].append(element)
-    return dict(partitions)
+        classifications[classifier_func(element)].append(element)
+    return dict(classifications)
 
 
 def first_weekday_after(weekday_index, date):
