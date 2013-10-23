@@ -1,4 +1,5 @@
 #!python3
+from json import JSONEncoder
 import re
 
 from lxml import etree
@@ -23,6 +24,10 @@ class Course:
     def __str__(self):
         return '<Course: {0} ({1})>'.format(self.title, self.code)
 
+
+class CourseEncoder(JSONEncoder):
+    def default(self, course):
+        return course.__dict__
 
 
 def combined_course_selection_page():

@@ -18,12 +18,12 @@ class EdCal:
     def __init__(self):
         self.course_list = load_courses()
 
-    def course_search(self, search_text):
+    def course_filter(self, search_text):
         """Return a list of courses matching the given search text."""
         return regex_filter(self.course_list, search_text)
 
-    def identifier_search(self, search_text):
-        """Return a list of course identifiers for the given search text."""
+    def identifier_filter(self, search_text):
+        """Return a list of course identifier strings for the given search regex."""
         return [c.identifier for (c) in self.course_search(search_text)]
 
 

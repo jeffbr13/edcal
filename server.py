@@ -7,10 +7,12 @@ from flask import Flask, render_template, request
 from wtforms import Form, TextField, validators, FieldList
 
 from edcal import EdCal
+from edcal.ted.courses import CourseEncoder
 
 
 app = Flask(__name__)
 edcal = None
+
 
 class CourseCodeForm(Form):
     """Takes and validates a bunch of UoE course codes."""
@@ -28,12 +30,21 @@ def homepage():
 
 @app.route('/identifiers')
 def identifier_search():
-    """List of identifiers for courses matching query regex.
+    """JSON list of course identifiers for regex matches."""
+    try:
+        return ('{"identifiers": ' +
+            json.dumps(edcal.identifier_filter(request.args.get('q', '')), cls=CourseEncoder)
+            + '}')
+    except KeyError:
+        return ''
 
-    Get identifiers for all Informatics courses:
-        GET /identifiers?q=INFR.*
-    """
-    return json.dumps(edcal.identifier_search(request.args.get('q', '')))
+
+@app.route('/courses')
+def course_search():
+    """JSON list of course objects."""
+    return ('{"courses": ' +
+        json.dumps(edcal.course_filter(request.args.get('q', '')), cls=CourseEncoder)
+        + '}')
 
 
 if __name__ == '__main__':
