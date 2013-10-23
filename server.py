@@ -1,5 +1,5 @@
 #!python3
-"""Web API/interface to edcal."""
+"""Web API/interface."""
 import json
 import os
 
@@ -17,8 +17,7 @@ class CourseCodeForm(Form):
     course_codes = FieldList(
         TextField(label='course-code',
                   validators=[validators.Regexp('[\w]{4}[\d]{5}')]),
-        min_entries=3
-    )
+        min_entries=3)
 
 
 @app.route('/')
