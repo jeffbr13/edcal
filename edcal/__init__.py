@@ -10,15 +10,7 @@ from uuid import uuid4
 
 from .ted.courses import load_courses, regex_filter
 from .ted.timetable import fetch_timetable_items
-from.vcal import CalendarEvent, render_calendar
-
-
-sample_identifiers = [
-    'INFR08020_SV1_SEM2',
-    'INFR08012_SV1_SEM1',
-    'INFR08015_SV1_SEM2',
-    'INFR08013_SV1_SEM1',
-    'INFR08014_SV1_SEM2']
+from .vcal import CalendarEvent, render_calendar
 
 
 class EdCal:
@@ -42,6 +34,3 @@ class EdCal:
             uuid4,
             datetime.now()
         )
-
-
-edcal_instance = EdCal()

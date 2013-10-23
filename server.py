@@ -6,11 +6,11 @@ import os
 from flask import Flask, render_template, request
 from wtforms import Form, TextField, validators, FieldList
 
-from edcal import edcal_instance as edcal
+from edcal import EdCal
 
 
 app = Flask(__name__)
-
+edcal = None
 
 class CourseCodeForm(Form):
     """Takes and validates a bunch of UoE course codes."""
@@ -28,11 +28,17 @@ def homepage():
 
 @app.route('/identifiers')
 def identifier_search():
-    """List of identifiers for courses matching the query regex."""
+    """List of identifiers for courses matching query regex.
+
+    Get identifiers for all Informatics courses:
+        GET /identifiers?q=INFR.*
+    """
     return json.dumps(edcal.identifier_search(request.args.get('q', '')))
 
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
+    edcal = EdCal()
     app.run(host='0.0.0.0', port=port, debug=True)
+
